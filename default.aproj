@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project ver="10" name="kml" libEmbed="true" icon="..." ui="win" output="kml.exe" CompanyName="lokyma" FileDescription="A software that allows the user to lock the keyboard and mouse in a customized way." LegalCopyright="© lokyma 2023" ProductName="Keyboard & Mouse Lock" InternalName="kml" FileVersion="0.0.0.1" ProductVersion="0.0.1.0" publishDir="\dst\" dstrip="true" local="false" ignored="false">
+	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
+</project>

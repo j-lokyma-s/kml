@@ -1,0 +1,62 @@
+import win.ui;
+import key.hook;
+import mouse.hook;
+/*DSG{{*/
+main_form = win.form(text="Keyboard & Mouse Lock";right=319;bottom=109;bgcolor=16777215;border="dialog frame";max=false)
+main_form.add(
+keyboard={cls="checkbox";text="Keyboard";left=110;top=20;right=210;bottom=45;bgcolor=16777215;font=LOGFONT(h=-16);tabstop=1;z=2};
+mouse={cls="checkbox";text="Mouse";left=110;top=65;right=210;bottom=90;bgcolor=16777215;font=LOGFONT(h=-16);tabstop=1;z=3};
+tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=320;bottom=20;align="center";center=1;color=255;transparent=1;z=1}
+)
+/*}}*/
+
+//hide tip
+main_form.tip.show(false);
+
+//switch status
+oncommand = function(id, event) {
+    global[owner.text] = owner.checked;
+    //show tip
+    if (owner.text == "Mouse") {
+        main_form.tip.show(owner.checked);
+    }
+}
+
+//bind event
+main_form.keyboard.oncommand = oncommand;
+main_form.mouse.oncommand = oncommand;
+
+//keyboard hook
+var keyboard_hook = key.hook();
+keyboard_hook.proc = function(msg, vkcode, scancode, injected, flags, timeStamp, extraInfo) {
+    return global.Keyboard;
+}
+
+//mouse hook
+var begin_time;
+var mouse_hook = mouse.hook();
+mouse_hook.proc = function(msg, vkcode, scancode, injected, flags, timeStamp, extraInfo) {
+    select (msg) {
+        case 0x201 /*_WM_LBUTTONDOWN*/ {
+            begin_time = time();
+        }
+        case 0x202 /*_WM_LBUTTONUP*/ {
+            //unlock mouse
+            if (time().diffsecond(begin_time) > 5) {
+                main_form.tip.show(false);
+                global.Mouse = false;
+                main_form.mouse.checked = false;
+            }
+        }
+    }
+    return global.Mouse;
+}
+
+//close hook on exit
+main_form.onClose = function(hwnd, message, wParam, lParam) {
+    keyboard_hook.close();
+    mouse_hook.close();
+}
+
+main_form.show();
+return win.loopMessage();
