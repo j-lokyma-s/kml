@@ -3,19 +3,19 @@ import key.hook;
 import mouse.hook;
 import config;
 /*DSG{{*/
-main_form = win.form(text="Keyboard & Mouse Lock";right=509;bottom=219;bgcolor=16777215)
+main_form = win.form(text="Keyboard & Mouse Lock";right=539;bottom=219;bgcolor=16777215)
 main_form.add(
-add={cls="plus";text="add";left=430;top=20;right=490;bottom=110;bgcolor=0;border={bottom=1;color=-16711681};color=16776960;db=0.5;dl=0.84;dr=1;dt=1;font=LOGFONT(h=-16);notify=1;tabstop=1;z=10};
-countdown={cls="trackbar";left=20;top=110;right=245;bottom=140;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);max=10;min=0;tabstop=1;tick="both";z=5};
-empty={cls="plus";text="empty";left=430;top=110;right=490;bottom=200;bgcolor=0;border={top=1;color=-16711681};color=16776960;db=1;dl=0.84;dr=1;dt=0.5;font=LOGFONT(h=-16);notify=1;tabstop=1;z=11};
-exclusion_list={cls="listbox";left=265;top=50;right=430;bottom=200;bgcolor=16776960;db=1;dl=1;dr=0.16;dt=1;font=LOGFONT(h=-16);integralHeight=0;items={};tabstop=1;vscroll=1;z=9};
-label0={cls="bk";text="countdown(sec)";left=20;top=80;right=245;bottom=110;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=4};
-label1={cls="bk";text="language";left=20;top=140;right=245;bottom=170;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=6};
-label2={cls="bk";text="exclusion list";left=265;top=20;right=430;bottom=50;align="left";bgcolor=16776960;dl=1;dr=1;dt=1;font=LOGFONT(h=-16);z=8};
-language={cls="combobox";left=20;top=170;right=245;bottom=196;bgcolor=16777215;border=1;dl=1;dt=1;font=LOGFONT(h=-16);items={};mode="dropdown";tabstop=1;z=7};
-lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=245;bottom=50;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=2};
-lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=245;bottom=80;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
-tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=510;bottom=20;align="center";center=1;color=255;dl=1;dr=1;dt=1;hide=1;transparent=1;z=1}
+add={cls="plus";text="add";left=450;top=20;right=520;bottom=110;bgcolor=0;border={bottom=1;color=-16711681};color=16776960;db=0.5;dl=0.83;dr=1;dt=1;font=LOGFONT(h=-16);notify=1;tabstop=1;z=10};
+countdown={cls="trackbar";left=20;top=110;right=260;bottom=140;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);max=10;min=0;tabstop=1;tick="both";z=5};
+empty={cls="plus";text="empty";left=450;top=110;right=520;bottom=200;bgcolor=0;border={top=1;color=-16711681};color=16776960;db=1;dl=0.83;dr=1;dt=0.5;font=LOGFONT(h=-16);notify=1;tabstop=1;z=11};
+exclusion_list={cls="listbox";left=280;top=50;right=450;bottom=200;bgcolor=16776960;db=1;dl=1;dr=0.17;dt=1;font=LOGFONT(h=-16);integralHeight=0;items={};tabstop=1;vscroll=1;z=9};
+label0={cls="bk";text="countdown(sec)";left=20;top=80;right=260;bottom=110;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=4};
+label1={cls="bk";text="language";left=20;top=140;right=260;bottom=170;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=6};
+label2={cls="bk";text="exclusion list";left=280;top=20;right=450;bottom=50;align="left";bgcolor=16776960;dl=1;dr=1;dt=1;font=LOGFONT(h=-16);z=8};
+language={cls="combobox";left=20;top=170;right=260;bottom=196;bgcolor=16777215;border=1;dl=1;dt=1;font=LOGFONT(h=-16);items={};mode="dropdown";tabstop=1;z=7};
+lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=260;bottom=50;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=2};
+lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=260;bottom=80;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
+tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=540;bottom=20;align="center";center=1;color=255;dl=1;dr=1;dt=1;hide=1;transparent=1;z=1}
 )
 /*}}*/
 
@@ -64,7 +64,7 @@ main_form.language.items = {
 main_form.language.selIndex = global.language;
 localize = function() {
     var i18n_table = eval(string.load(string.format("\res\%s.txt", main_form.language.selText)));
-    main_form.text = i18n_table.title + "  v2.0";
+    main_form.text = i18n_table.title + "  v2.1";
     for (i, ctrl in {
             "lock_keyboard", "lock_mouse", "label0", "label1", "label2", "add", "empty", "tip"
         }) {
@@ -109,7 +109,7 @@ main_form.add.onMouseHover = function(wParam, lParam) {
         _keyboard_hook.proc = lambda(msg, vkcode) proc_vkcode(vkcode) or true;
     }
     if (not main_form.lock_mouse.checked) {
-        _mouse_hook.proc = lambda(msg, x, y, mouseData) proc_vkcode(msg + mouseData);
+        _mouse_hook.proc = lambda(msg, x, y, mousedata) proc_vkcode(msg + mousedata);
     }
 }
 //disable hooks when the mouse moves out of the add button
@@ -142,7 +142,7 @@ main_form.countdown.onnotify = function(id, code, ptr) {
     }
 }
 start_countdown = function(ctrl) {
-    if (ctrl.checked) {
+    if (ctrl.checked and main_form.countdown.pos > 0) {
         ctrl.disabled = true;
         main_form.countdown.disabled = true;
         for (i = 0; main_form.countdown.pos; 0.5) {
@@ -171,17 +171,17 @@ main_form.lock_mouse.oncommand = function(id, event) {
     owner.bgcolor = owner.checked ? 65535 : 16776960;
     start_countdown(owner);
     main_form.tip.show(owner.checked);
-    _mouse_hook.proc = owner.checked ? function(msg, x, y, mouseData, injected, flags, timeStamp, extraInfo) {
+    _mouse_hook.proc = owner.checked ? function(msg, x, y, mousedata, injected, flags, timestamp) {
         if (msg == 0x201 /*_WM_LBUTTONDOWN*/ ) {
-            begin_time = time();
+            begin_time = timestamp;
         }
-        if (msg == 0x202 /*_WM_LBUTTONUP*/ and time().diffsecond(begin_time) > 5) {
+        if (msg == 0x202 /*_WM_LBUTTONUP*/ and begin_time and timestamp - begin_time >= 5000) {
             _mouse_hook.proc = null;
             main_form.tip.show(false);
             main_form.lock_mouse.checked = false;
             main_form.lock_mouse.bgcolor = 16776960;
         }
-        return not table.indexOf(global.exclusion_list, msg + mouseData);
+        return not table.indexOf(global.exclusion_list, msg + mousedata);
     } : null;
 }
 
