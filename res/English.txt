@@ -1,0 +1,11 @@
+{
+    title="Keyboard & Mouse Lock";
+    lock_keyboard="lock keyboard";
+    lock_mouse="lock mouse";
+    label0="countdown (sec)";
+    label1="language";
+    label2="exclusion list";
+    add="add";
+    empty="empty";
+    tip="press and hold the left mouse button for 5 sec to unlock"
+}

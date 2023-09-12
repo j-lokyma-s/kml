@@ -1,0 +1,11 @@
+{
+    title="bloqueo del teclado del ratón";
+    lock_keyboard="bloquear teclado";
+    lock_mouse="bloquear ratón";
+    label0="cuenta atrás";
+    label1="idioma";
+    label2="lista de exclusión";
+    add="agregar";
+    empty="vacío";
+    tip="presione y mantenga presionado el botón izquierdo del mouse durante 5 segundos para desbloquear"
+}

@@ -1,0 +1,24 @@
+﻿import fsys.ini;
+
+namespace config {
+    self.file = ..fsys.ini(..io.getSpecial(0x28 /*_CSIDL_PROFILE*/ ) + "\kml.ini");
+    
+    self.load = function() {
+        global.language = tonumber(self.file.read("kml", "language") or "1");
+        global.language = (global.language < 22 and global.language > 0 and ..math.isInteger(global.language)) ? global.language : 1;
+        global.countdown = tonumber(self.file.read("kml", "countdown") or "0");
+        global.countdown = (global.countdown < 11 and global.countdown > -1 and ..math.isInteger(global.countdown)) ? global.countdown : 0;
+        global.exclusion_list = ..table.map(..string.split(self.file.read("kml", "exclusion_list") or "", ";"), lambda(v, k) tonumber(v));
+        self.load = null;
+    }
+    
+    self.set = function(key, value) {
+        if (type(value) != "table") {
+            global[key] = value;
+            self.file.write("kml", key, value);
+        }
+        else {
+            self.file.write("kml", key, ..string.join(value, ";"));
+        }
+    }
+}

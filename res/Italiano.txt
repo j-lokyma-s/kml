@@ -1,0 +1,11 @@
+{
+    title="Blocco tastiera e mouse";
+    lock_keyboard="blocca tastiera";
+    lock_mouse="blocca mouse";
+    label0="conto alla rovescia SEC";
+    label1="lingua";
+    label2="elenco di esclusione";
+    add="aggiungere";
+    empty="vuoto";
+    tip="premere e tenere premuto il pulsante sinistro del mouse per 5 sec per sbloccare"
+}

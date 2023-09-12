@@ -1,0 +1,11 @@
+{
+    "title":"Verrouillage du clavier et de la souris",
+    "lock_keyboard":"verrouiller le clavier",
+    "lock_mouse":"verrouiller la souris",
+    "label0":"compte à rebours (sec)",
+    "label1":"langue",
+    "label2":"liste d'exclusion",
+    "add":"ajouter",
+    "empty":"vide",
+    "tip":"appuyez et maintenez le bouton gauche de la souris pendant 5 secondes pour déverrouiller"
+}

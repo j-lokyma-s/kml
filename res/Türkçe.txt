@@ -1,0 +1,11 @@
+{
+    title="Klavye ve Fare Kilidi";
+    lock_keyboard="kilit klavyesi";
+    lock_mouse="fareyi kilitle";
+    label0="geri sayım saniyesi";
+    label1="dil";
+    label2="yasaklı listesi";
+    add="eklemek";
+    empty="boş";
+    tip="5 saniye boyunca sol fare düğmesine basılı tutarak kilidi açın"
+}

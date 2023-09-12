@@ -1,0 +1,11 @@
+{
+    title="鍵盤 & 滑鼠鎖";
+    lock_keyboard="鎖鍵盤";
+    lock_mouse="鎖滑鼠";
+    label0="倒數計時(秒)";
+    label1="語言";
+    label2="排除清單";
+    add="添加";
+    empty="清空";
+    tip="長按滑鼠左鍵 5 秒解鎖"
+}

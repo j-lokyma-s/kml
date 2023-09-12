@@ -1,4 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="kml" libEmbed="true" icon="..." ui="win" output="kml.exe" CompanyName="lokyma" FileDescription="A software that allows the user to lock the keyboard and mouse in a customized way." LegalCopyright="© lokyma 2023" ProductName="Keyboard & Mouse Lock" InternalName="kml" FileVersion="0.0.0.1" ProductVersion="0.0.1.0" publishDir="\dst\" dstrip="true" local="false" ignored="false">
+<project ver="10" name="kml" libEmbed="true" icon="..." ui="win" output="kml.exe" CompanyName="lokyma" FileDescription="A software that allows the user to lock the keyboard and mouse in a customized way." LegalCopyright="© lokyma 2023" ProductName="Keyboard & Mouse Lock" InternalName="kml" FileVersion="0.0.0.2" ProductVersion="0.0.2.0" publishDir="\dst\" dstrip="true" local="false" ignored="false">
 	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
+	<folder name="资源" path="res" comment="res" local="false" embed="true" ignored="false">
+		<file name="Deutsch.txt" path="res\Deutsch.txt" comment="res\Deutsch.txt"/>
+		<file name="English.txt" path="res\English.txt" comment="res\English.txt"/>
+		<file name="Español.txt" path="res\Español.txt" comment="res\Español.txt"/>
+		<file name="Français.txt" path="res\Français.txt" comment="res\Français.txt"/>
+		<file name="Italiano.txt" path="res\Italiano.txt" comment="res\Italiano.txt"/>
+		<file name="Português.txt" path="res\Português.txt" comment="res\Português.txt"/>
+		<file name="Pусский.txt" path="res\Pусский.txt" comment="res\Pусский.txt"/>
+		<file name="Tiếng Việt.txt" path="res\Tiếng Việt.txt" comment="res\Tiếng Việt.txt"/>
+		<file name="Türkçe.txt" path="res\Türkçe.txt" comment="res\Türkçe.txt"/>
+		<file name="Монгол хэл.txt" path="res\Монгол хэл.txt" comment="res\Монгол хэл.txt"/>
+		<file name="עִבְרִית.txt" path="res\עִבְרִית.txt" comment="res\עִבְרִית.txt"/>
+		<file name="ئۇيغۇرچە.txt" path="res\ئۇيغۇرچە.txt" comment="res\ئۇيغۇرچە.txt"/>
+		<file name="العربية.txt" path="res\العربية.txt" comment="res\العربية.txt"/>
+		<file name="فارسی.txt" path="res\فارسی.txt" comment="res\فارسی.txt"/>
+		<file name="हिन्दी.txt" path="res\हिन्दी.txt" comment="res\हिन्दी.txt"/>
+		<file name="ไทย.txt" path="res\ไทย.txt" comment="res\ไทย.txt"/>
+		<file name="བོད་སྐད་.txt" path="res\བོད་སྐད་.txt" comment="res\བོད་སྐད་.txt"/>
+		<file name="日本語.txt" path="res\日本語.txt" comment="res\日本語.txt"/>
+		<file name="简体中文.txt" path="res\简体中文.txt" comment="res\简体中文.txt"/>
+		<file name="繁體中文.txt" path="res\繁體中文.txt" comment="res\繁體中文.txt"/>
+		<file name="한국어.txt" path="res\한국어.txt" comment="res\한국어.txt"/>
+	</folder>
 </project>

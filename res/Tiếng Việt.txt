@@ -1,0 +1,11 @@
+{
+    title="bàn phím, khóa chuột";
+    lock_keyboard="khóa bàn phím";
+    lock_mouse="trống rỗng";
+    label0="đếm ngược (giây)";
+    label1="ngôn ngữ";
+    label2="danh sách loại trừ";
+    add="thêm";
+    empty="trống rỗng";
+    tip="nhấn giữ nút chuột trái 5 giây để mở khóa"
+}

@@ -1,62 +1,194 @@
 import win.ui;
 import key.hook;
 import mouse.hook;
+import config;
 /*DSG{{*/
-main_form = win.form(text="Keyboard & Mouse Lock";right=319;bottom=109;bgcolor=16777215;border="dialog frame";max=false)
+main_form = win.form(text="Keyboard & Mouse Lock";right=509;bottom=219;bgcolor=16777215)
 main_form.add(
-keyboard={cls="checkbox";text="Keyboard";left=110;top=20;right=210;bottom=45;bgcolor=16777215;font=LOGFONT(h=-16);tabstop=1;z=2};
-mouse={cls="checkbox";text="Mouse";left=110;top=65;right=210;bottom=90;bgcolor=16777215;font=LOGFONT(h=-16);tabstop=1;z=3};
-tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=320;bottom=20;align="center";center=1;color=255;transparent=1;z=1}
+add={cls="plus";text="add";left=430;top=20;right=490;bottom=110;bgcolor=0;border={bottom=1;color=-16711681};color=16776960;db=0.5;dl=0.84;dr=1;dt=1;font=LOGFONT(h=-16);notify=1;tabstop=1;z=10};
+countdown={cls="trackbar";left=20;top=110;right=245;bottom=140;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);max=10;min=0;tabstop=1;tick="both";z=5};
+empty={cls="plus";text="empty";left=430;top=110;right=490;bottom=200;bgcolor=0;border={top=1;color=-16711681};color=16776960;db=1;dl=0.84;dr=1;dt=0.5;font=LOGFONT(h=-16);notify=1;tabstop=1;z=11};
+exclusion_list={cls="listbox";left=265;top=50;right=430;bottom=200;bgcolor=16776960;db=1;dl=1;dr=0.16;dt=1;font=LOGFONT(h=-16);integralHeight=0;items={};tabstop=1;vscroll=1;z=9};
+label0={cls="bk";text="countdown(sec)";left=20;top=80;right=245;bottom=110;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=4};
+label1={cls="bk";text="language";left=20;top=140;right=245;bottom=170;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=6};
+label2={cls="bk";text="exclusion list";left=265;top=20;right=430;bottom=50;align="left";bgcolor=16776960;dl=1;dr=1;dt=1;font=LOGFONT(h=-16);z=8};
+language={cls="combobox";left=20;top=170;right=245;bottom=196;bgcolor=16777215;border=1;dl=1;dt=1;font=LOGFONT(h=-16);items={};mode="dropdown";tabstop=1;z=7};
+lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=245;bottom=50;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=2};
+lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=245;bottom=80;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
+tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=510;bottom=20;align="center";center=1;color=255;dl=1;dr=1;dt=1;hide=1;transparent=1;z=1}
 )
 /*}}*/
 
-//hide tip
-main_form.tip.show(false);
+//keyboard hook & mouse hook
+var _keyboard_hook = key.hook();
+var _mouse_hook = mouse.hook();
+//mouse action table
+var _mouse_action = {
+    "513" = "MOUSE - LEFT ↓";
+    "514" = "MOUSE - LEFT ↑";
+    "516" = "MOUSE - RIGHT ↓";
+    "517" = "MOUSE - RIGHT ↑";
+    "519" = "MOUSE - MIDDLE ↓";
+    "520" = "MOUSE - MIDDLE ↑";
+    "131595" = "MOUSE - SIDE_1 ↓";
+    "131596" = "MOUSE - SIDE_1 ↑";
+    "66059" = "MOUSE - SIDE_2 ↓";
+    "66060" = "MOUSE - SIDE_2 ↑";
+    "4287103498" = "MOUSE - WHEEL ↓";
+    "7864842" = "MOUSE - WHEEL ↑";
+    "512" = "MOUSE - MOVE"
+};
+//skinning buttons
+var button_skin = {
+    color = {
+        default = 0xFF00FFFF;
+        hover = 0xFF000000;
+        focus = 0xFF000000
+    };
+    background = {
+        default = 0xFF000000;
+        hover = 0xFFFFFF00;
+        focus = 0xFFFFFF00
+    }
+};
+main_form.add.skin(button_skin, false);
+main_form.empty.skin(button_skin, false);
+button_skin = null;
 
-//switch status
-oncommand = function(id, event) {
-    global[owner.text] = owner.checked;
-    //show tip
-    if (owner.text == "Mouse") {
-        main_form.tip.show(owner.checked);
+//load config
+config.load();
+//localize
+main_form.language.items = {
+    "English", "简体中文", "繁體中文", "Deutsch", "العربية", "Español", "עִבְרִית", "Français", "Italiano", "ئۇيغۇرچە", "한국어", "Português", "Pусский", "Tiếng Việt", "हिन्दी", "Монгол хэл", "فارسی", "ไทย", "བོད་སྐད་", "Türkçe", "日本語"
+}
+main_form.language.selIndex = global.language;
+localize = function() {
+    var i18n_table = eval(string.load(string.format("\res\%s.txt", main_form.language.selText)));
+    main_form.text = i18n_table.title + "  v2.0";
+    for (i, ctrl in {
+            "lock_keyboard", "lock_mouse", "label0", "label1", "label2", "add", "empty", "tip"
+        }) {
+        main_form[ctrl].text = i18n_table[ctrl];
+    }
+    i18n_table = null;
+    main_form.label0.redraw();
+    main_form.label1.redraw();
+    main_form.label2.redraw();
+}
+localize();
+//when switching languages
+main_form.language.onFocusLost = function() {
+    if (owner.selText == "") {
+        owner.selIndex = global.language;
+    }
+    else if (owner.selIndex != global.language) {
+        config.set("language", owner.selIndex);
+        localize();
     }
 }
+main_form.language.onCloseUp = main_form.language.onFocusLost;
 
-//bind event
-main_form.keyboard.oncommand = oncommand;
-main_form.mouse.oncommand = oncommand;
-
-//keyboard hook
-var keyboard_hook = key.hook();
-keyboard_hook.proc = function(msg, vkcode, scancode, injected, flags, timeStamp, extraInfo) {
-    return global.Keyboard;
+//load exclusion list
+main_form.exclusion_list.items = table.map(global.exclusion_list, function(v, k, result) {
+    var name = key.getName(v);
+    return name ? name : (_mouse_action[tostring(v)] ? _mouse_action[tostring(v)] : table.remove(global.exclusion_list, k) and null);
+});
+config.set("exclusion_list", global.exclusion_list);
+//proc vkcode
+proc_vkcode = function(vkcode) {
+    if (not table.indexOf(global.exclusion_list, vkcode)) {
+        table.push(global.exclusion_list, vkcode);
+        config.set("exclusion_list", global.exclusion_list);
+        main_form.exclusion_list.add(_mouse_action[tostring(vkcode)] or key.getName(vkcode));
+    }
+}
+//enable hooks when the mouse moves into the add button
+main_form.add.onMouseHover = function(wParam, lParam) {
+    win.delay(300);
+    if (not main_form.lock_keyboard.checked) {
+        _keyboard_hook.proc = lambda(msg, vkcode) proc_vkcode(vkcode) or true;
+    }
+    if (not main_form.lock_mouse.checked) {
+        _mouse_hook.proc = lambda(msg, x, y, mouseData) proc_vkcode(msg + mouseData);
+    }
+}
+//disable hooks when the mouse moves out of the add button
+main_form.add.onMouseLeave = function(wParam, lParam) {
+    if (not main_form.lock_keyboard.checked) {
+        _keyboard_hook.proc = null;
+    }
+    if (not main_form.lock_mouse.checked) {
+        _mouse_hook.proc = null;
+    }
+}
+//double-click to remove the excluded item
+main_form.exclusion_list.onDoubleClickItem = function() {
+    table.remove(global.exclusion_list, owner.selIndex);
+    config.set("exclusion_list", global.exclusion_list);
+    owner.delete();
+}
+//empty the exclusion list when you click the empty button
+main_form.empty.oncommand = function(id, event) {
+    table.clear(global.exclusion_list);
+    config.set("exclusion_list", global.exclusion_list);
+    main_form.exclusion_list.clear();
 }
 
-//mouse hook
-var begin_time;
-var mouse_hook = mouse.hook();
-mouse_hook.proc = function(msg, vkcode, scancode, injected, flags, timeStamp, extraInfo) {
-    select (msg) {
-        case 0x201 /*_WM_LBUTTONDOWN*/ {
+//countdown
+main_form.countdown.pos = global.countdown;
+main_form.countdown.onnotify = function(id, code, ptr) {
+    if (code == 0xFFFFFFF4) {
+        config.set("countdown", owner.pos);
+    }
+}
+start_countdown = function(ctrl) {
+    if (ctrl.checked) {
+        ctrl.disabled = true;
+        main_form.countdown.disabled = true;
+        for (i = 0; main_form.countdown.pos; 0.5) {
+            if (math.isInteger(i)) {
+                main_form.label0.color, main_form.label0.bgcolor = 0, 16776960;
+            }
+            else {
+                main_form.label0.color, main_form.label0.bgcolor = 65535, 0;
+            }
+            main_form.label0.redraw();
+            win.delay(500);
+        }
+        main_form.countdown.disabled = false;
+        ctrl.disabled = false;
+    }
+}
+//when lock_keyboard is clicked
+main_form.lock_keyboard.oncommand = function(id, event) {
+    owner.bgcolor = owner.checked ? 65535 : 16776960;
+    start_countdown(owner);
+    _keyboard_hook.proc = owner.checked ? lambda(msg, vkcode) not table.indexOf(global.exclusion_list, vkcode) : null;
+}
+//when lock_mouse is clicked
+main_form.lock_mouse.oncommand = function(id, event) {
+    var begin_time;
+    owner.bgcolor = owner.checked ? 65535 : 16776960;
+    start_countdown(owner);
+    main_form.tip.show(owner.checked);
+    _mouse_hook.proc = owner.checked ? function(msg, x, y, mouseData, injected, flags, timeStamp, extraInfo) {
+        if (msg == 0x201 /*_WM_LBUTTONDOWN*/ ) {
             begin_time = time();
         }
-        case 0x202 /*_WM_LBUTTONUP*/ {
-            //unlock mouse
-            if (time().diffsecond(begin_time) > 5) {
-                main_form.tip.show(false);
-                global.Mouse = false;
-                main_form.mouse.checked = false;
-            }
+        if (msg == 0x202 /*_WM_LBUTTONUP*/ and time().diffsecond(begin_time) > 5) {
+            _mouse_hook.proc = null;
+            main_form.tip.show(false);
+            main_form.lock_mouse.checked = false;
+            main_form.lock_mouse.bgcolor = 16776960;
         }
-    }
-    return global.Mouse;
+        return not table.indexOf(global.exclusion_list, msg + mouseData);
+    } : null;
 }
 
 //close hook on exit
 main_form.onClose = function(hwnd, message, wParam, lParam) {
-    keyboard_hook.close();
-    mouse_hook.close();
+    _keyboard_hook.close();
+    _mouse_hook.close();
 }
-
 main_form.show();
 return win.loopMessage();

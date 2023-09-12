@@ -1,0 +1,11 @@
+{
+    "title": "Tastatur & Maus sperren",
+    "lock_keyboard": "Tastatur sperren",
+    "lock_mouse": "Maus sperren",
+    "label0": "Countdown (Sekunde)",
+    "label1": "Sprache",
+    "label2": "Ausschlussliste",
+    "add": "Hinzufügen",
+    "empty": "Leer",
+    "tip": "Drücken und halten Sie die linke Maustaste für 5 Sekunden gedrückt, um zu entsperren"
+}
