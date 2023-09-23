@@ -1,4 +1,5 @@
 import win.ui;
+import win.ui.minmax;
 import key.hook;
 import mouse.hook;
 import config;
@@ -16,7 +17,8 @@ language={cls="combobox";left=20;top=170;right=260;bottom=196;bgcolor=16777215;b
 lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=260;bottom=50;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=2};
 lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=260;bottom=80;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
 tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=540;bottom=20;align="center";center=1;color=255;dl=1;dr=1;dt=1;hide=1;transparent=1;z=1}
-)
+);
+win.ui.minmax(main_form);
 /*}}*/
 
 //keyboard hook & mouse hook
@@ -61,16 +63,15 @@ config.load();
 main_form.language.items = {
     "English", "简体中文", "繁體中文", "Deutsch", "العربية", "Español", "עִבְרִית", "Français", "Italiano", "ئۇيغۇرچە", "한국어", "Português", "Pусский", "Tiếng Việt", "हिन्दी", "Монгол хэл", "فارسی", "ไทย", "བོད་སྐད་", "Türkçe", "日本語"
 }
-main_form.language.selIndex = global.language;
+main_form.language.selIndex = config.table.language;
 localize = function() {
     var i18n_table = eval(string.load(string.format("\res\%s.txt", main_form.language.selText)));
-    main_form.text = i18n_table.title + "  v2.1";
+    main_form.text = i18n_table.title + "  v2.2";
     for (i, ctrl in {
             "lock_keyboard", "lock_mouse", "label0", "label1", "label2", "add", "empty", "tip"
         }) {
         main_form[ctrl].text = i18n_table[ctrl];
     }
-    i18n_table = null;
     main_form.label0.redraw();
     main_form.label1.redraw();
     main_form.label2.redraw();
@@ -79,9 +80,9 @@ localize();
 //when switching languages
 main_form.language.onFocusLost = function() {
     if (owner.selText == "") {
-        owner.selIndex = global.language;
+        owner.selIndex = config.table.language;
     }
-    else if (owner.selIndex != global.language) {
+    else if (owner.selIndex != config.table.language) {
         config.set("language", owner.selIndex);
         localize();
     }
@@ -89,16 +90,16 @@ main_form.language.onFocusLost = function() {
 main_form.language.onCloseUp = main_form.language.onFocusLost;
 
 //load exclusion list
-main_form.exclusion_list.items = table.map(global.exclusion_list, function(v, k, result) {
+main_form.exclusion_list.items = table.map(config.table.exclusion_list, function(v, k, result) {
     var name = key.getName(v);
-    return name ? name : (_mouse_action[tostring(v)] ? _mouse_action[tostring(v)] : table.remove(global.exclusion_list, k) and null);
+    return name ? name : _mouse_action[tostring(v)] ? _mouse_action[tostring(v)] : table.remove(config.table.exclusion_list, k) and null);
 });
-config.set("exclusion_list", global.exclusion_list);
+config.set("exclusion_list", config.table.exclusion_list);
 //proc vkcode
 proc_vkcode = function(vkcode) {
-    if (not table.indexOf(global.exclusion_list, vkcode)) {
-        table.push(global.exclusion_list, vkcode);
-        config.set("exclusion_list", global.exclusion_list);
+    if (not table.indexOf(config.table.exclusion_list, vkcode)) {
+        table.push(config.table.exclusion_list, vkcode);
+        config.set("exclusion_list", config.table.exclusion_list);
         main_form.exclusion_list.add(_mouse_action[tostring(vkcode)] or key.getName(vkcode));
     }
 }
@@ -123,19 +124,19 @@ main_form.add.onMouseLeave = function(wParam, lParam) {
 }
 //double-click to remove the excluded item
 main_form.exclusion_list.onDoubleClickItem = function() {
-    table.remove(global.exclusion_list, owner.selIndex);
-    config.set("exclusion_list", global.exclusion_list);
+    table.remove(config.table.exclusion_list, owner.selIndex);
+    config.set("exclusion_list", config.table.exclusion_list);
     owner.delete();
 }
 //empty the exclusion list when you click the empty button
 main_form.empty.oncommand = function(id, event) {
-    table.clear(global.exclusion_list);
-    config.set("exclusion_list", global.exclusion_list);
+    table.clear(config.table.exclusion_list);
+    config.set("exclusion_list", config.table.exclusion_list);
     main_form.exclusion_list.clear();
 }
 
 //countdown
-main_form.countdown.pos = global.countdown;
+main_form.countdown.pos = config.table.countdown;
 main_form.countdown.onnotify = function(id, code, ptr) {
     if (code == 0xFFFFFFF4) {
         config.set("countdown", owner.pos);
@@ -163,7 +164,7 @@ start_countdown = function(ctrl) {
 main_form.lock_keyboard.oncommand = function(id, event) {
     owner.bgcolor = owner.checked ? 65535 : 16776960;
     start_countdown(owner);
-    _keyboard_hook.proc = owner.checked ? lambda(msg, vkcode) not table.indexOf(global.exclusion_list, vkcode) : null;
+    _keyboard_hook.proc = owner.checked ? lambda(msg, vkcode) not table.indexOf(config.table.exclusion_list, vkcode) : null;
 }
 //when lock_mouse is clicked
 main_form.lock_mouse.oncommand = function(id, event) {
@@ -181,7 +182,7 @@ main_form.lock_mouse.oncommand = function(id, event) {
             main_form.lock_mouse.checked = false;
             main_form.lock_mouse.bgcolor = 16776960;
         }
-        return not table.indexOf(global.exclusion_list, msg + mousedata);
+        return not table.indexOf(config.table.exclusion_list, msg + mousedata);
     } : null;
 }
 

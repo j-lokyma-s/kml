@@ -1,24 +1,33 @@
-﻿import fsys.ini;
+﻿//config
 
 namespace config {
-    self.file = ..fsys.ini(..io.getSpecial(0x28 /*_CSIDL_PROFILE*/ ) + "\kml.ini");
+    self.path = ..io.getSpecial(0x28 /*_CSIDL_PROFILE*/ ) + "\kml.ini";
+    
+    self.init = function() {
+        ..string.save(self.path, "{language=1;countdown=0;exclusion_list={}}");
+        self.table = {
+            language = 1;countdown = 0;exclusion_list = {}
+        };
+    }
     
     self.load = function() {
-        global.language = tonumber(self.file.read("kml", "language") or "1");
-        global.language = (global.language < 22 and global.language > 0 and ..math.isInteger(global.language)) ? global.language : 1;
-        global.countdown = tonumber(self.file.read("kml", "countdown") or "0");
-        global.countdown = (global.countdown < 11 and global.countdown > -1 and ..math.isInteger(global.countdown)) ? global.countdown : 0;
-        global.exclusion_list = ..table.map(..string.split(self.file.read("kml", "exclusion_list") or "", ";"), lambda(v, k) tonumber(v));
+        try {
+            self.table = eval(..string.load(self.path));
+            if (not..math.isInteger(self.table.language) or self.table.language < 1 or self.table.language > 21 or not..math.isInteger(self.table.countdown) or self.table.countdown < 0 or self.table.countdown > 10 or type(self.table.exclusion_list) != "table") {
+                self.init();
+            }
+        }
+        catch (e) {
+            self.init();
+        }
+        self.init = null;
         self.load = null;
     }
     
     self.set = function(key, value) {
         if (type(value) != "table") {
-            global[key] = value;
-            self.file.write("kml", key, value);
+            self.table[key] = value;
         }
-        else {
-            self.file.write("kml", key, ..string.join(value, ";"));
-        }
+        ..string.save(self.path, ..table.tostring(self.table));
     }
 }
