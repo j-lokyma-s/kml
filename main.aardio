@@ -18,8 +18,8 @@ lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=260;bott
 lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=260;bottom=80;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
 tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=540;bottom=20;align="center";center=1;color=255;dl=1;dr=1;dt=1;hide=1;transparent=1;z=1}
 );
-win.ui.minmax(main_form);
 /*}}*/
+win.ui.minmax(main_form);
 
 //keyboard hook & mouse hook
 var _keyboard_hook = key.hook();
