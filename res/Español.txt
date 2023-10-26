@@ -1,11 +1,11 @@
 {
-    title="bloqueo del teclado del ratón";
+    title="Bloqueo del Teclado del Ratón";
     lock_keyboard="bloquear teclado";
     lock_mouse="bloquear ratón";
     label0="cuenta atrás";
     label1="idioma";
     label2="lista de exclusión";
-    add="agregar";
-    empty="vacío";
-    tip="presione y mantenga presionado el botón izquierdo del mouse durante 5 segundos para desbloquear"
+    tip="presione y mantenga presionado el botón izquierdo del mouse durante 5 segundos para desbloquear";
+    sponsor="Patrocinar";
+    sponsor_text="Si te gusta el software y actualmente estás empleado, ¿considerarías patrocinarme? Cualquier cantidad es bienvenida. He estado desempleado durante mucho tiempo, no puedo encontrar trabajo y actualmente estoy trabajando para ganar dinero de varias maneras."
 }

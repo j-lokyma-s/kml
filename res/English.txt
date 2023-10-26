@@ -5,7 +5,7 @@
     label0="countdown (sec)";
     label1="language";
     label2="exclusion list";
-    add="add";
-    empty="empty";
-    tip="press and hold the left mouse button for 5 sec to unlock"
+    tip="press and hold the left mouse button for 5 sec to unlock",
+    sponsor="Sponsor",
+    sponsor_text="If you like the software and are currently employed, would you consider sponsoring me? Any amount is welcome. I've been unemployed for a long time, can't find a job, and am currently working on earning money in various ways."
 }

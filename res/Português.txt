@@ -1,11 +1,11 @@
 {
-    title="Bloqueio de teclado e mouse";
+    title="Bloqueio de Teclado e Mouse";
     lock_keyboard="bloquear teclado";
     lock_mouse="bloquear mouse";
     label0="contagem regressiva (seg)";
     label1="idioma";
     label2="lista de exclusão";
-    add="adicionar";
-    empty="vazio";
-    tip="pressione e segure o botão esquerdo do mouse por 5 segundos para desbloquear"
+    tip="pressione e segure o botão esquerdo do mouse por 5 segundos para desbloquear";
+    sponsor="Patrocinador";
+    sponsor_text="Se você gosta do software e está atualmente empregado, consideraria me patrocinar? Qualquer quantia é bem-vinda. Estou desempregado há muito tempo, não consigo encontrar emprego e atualmente estou trabalhando para ganhar dinheiro de várias maneiras."
 }

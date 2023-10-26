@@ -1,0 +1,48 @@
+import win.ui;
+import qrencode.bitmap;
+/*DSG{{*/
+var sponsor_form = win.form(text="sponsor";right=599;bottom=369;bgcolor=16777215;border="dialog frame";exmode="toolwindow";max=false;min=false;mode="popup")
+sponsor_form.add(
+alipay={cls="radiobutton";text="支付宝 Alipay";left=20;top=120;right=150;bottom=145;bgcolor=16742422;checked=1;font=LOGFONT(h=-16);z=3};
+border={cls="static";left=0;top=0;right=600;bottom=370;border=1;transparent=1;z=1};
+paypal={cls="radiobutton";text="PayPal";left=450;top=120;right=580;bottom=145;bgcolor=14588928;font=LOGFONT(h=-16);z=6};
+qrcode={cls="picturebox";left=220;top=155;right=380;bottom=315;center=1;font=LOGFONT(h=-16);z=7};
+qrcode_text={cls="edit";left=20;top=320;right=580;bottom=345;align="center";bgcolor=16777215;font=LOGFONT(h=-16);readonly=1;z=8};
+sponsor_text={cls="static";text="sponsor text";left=20;top=20;right=580;bottom=110;bgcolor=16777215;font=LOGFONT(h=-16);transparent=1;z=2};
+usdt={cls="radiobutton";text="USDT \ TRX";left=307;top=120;right=437;bottom=145;bgcolor=3424229;font=LOGFONT(h=-16);z=5};
+wechat={cls="radiobutton";text="微信 WeChat";left=163;top=120;right=293;bottom=145;bgcolor=6340871;font=LOGFONT(h=-16);z=4}
+)
+/*}}*/
+
+sponsor_form.text = global.i18n_table["sponsor"];
+sponsor_form.sponsor_text.text = global.i18n_table["sponsor_text"];
+global.i18n_table = null;
+
+var _qrcode = {
+    {
+        "https://qr.alipay.com/fkx12091vwhhmf7zcitxre1", "支付宝 Alipay"
+    }; {
+        "wxp://f2f0wW2lsvXifp4tE5F-20eXe3G-gWmy1j0NNFN4-EtVOOk", "微信 WeChat"
+    }; {
+        "TJ4J5Pdu4uUiTpzTUEgAMCi1b6sTavUwno", "TJ4J5Pdu4uUiTpzTUEgAMCi1b6sTavUwno"
+    }; {
+        "I don't have a QR code for Paypal yet.", "PayPal"
+    }
+};
+
+var on_select_payment_method = function(id, event) {
+    sponsor_form.qrcode.image = qrencode.bitmap(_qrcode[owner.index][1]).copyBitmap(160).saveToBuffer();
+    sponsor_form.qrcode_text.text = _qrcode[owner.index][2];
+    sponsor_form.qrcode_text.color = owner.bgcolor;
+}
+
+for (index, name in {
+        "alipay", "wechat", "usdt", "paypal"
+    }) {
+    sponsor_form[name].index = index;
+    sponsor_form[name].oncommand = on_select_payment_method;
+}
+
+sponsor_form.alipay.oncommand();
+sponsor_form.show();
+win.loopMessage();

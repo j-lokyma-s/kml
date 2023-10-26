@@ -5,7 +5,7 @@
     label0="geri sayım saniyesi";
     label1="dil";
     label2="yasaklı listesi";
-    add="eklemek";
-    empty="boş";
-    tip="5 saniye boyunca sol fare düğmesine basılı tutarak kilidi açın"
+    tip="5 saniye boyunca sol fare düğmesine basılı tutarak kilidi açın";
+    sponsor="Sponsor";
+    sponsor_text="Yazılımı beğendiyseniz ve şu anda çalışıyorsanız bana sponsor olmayı düşünür müsünüz? Herhangi bir miktar kabul edilir. Uzun zamandır işsizim, iş bulamıyorum ve şu anda çeşitli yollardan para kazanmaya çalışıyorum."
 }

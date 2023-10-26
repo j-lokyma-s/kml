@@ -1,11 +1,11 @@
 {
-    title="Blocco tastiera e mouse";
+    title="Blocco Tastiera e Mouse";
     lock_keyboard="blocca tastiera";
     lock_mouse="blocca mouse";
     label0="conto alla rovescia SEC";
     label1="lingua";
     label2="elenco di esclusione";
-    add="aggiungere";
-    empty="vuoto";
-    tip="premere e tenere premuto il pulsante sinistro del mouse per 5 sec per sbloccare"
+    tip="premere e tenere premuto il pulsante sinistro del mouse per 5 sec per sbloccare";
+    sponsor="Sponsor";
+    sponsor_text="Se ti piace il software e sei attualmente impiegato, prenderesti in considerazione la possibilità di sponsorizzarmi? Qualsiasi importo è il benvenuto. Sono disoccupato da molto tempo, non riesco a trovare lavoro e attualmente sto cercando di guadagnare denaro in vari modi."
 }

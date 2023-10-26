@@ -1,11 +1,11 @@
 {
-    "title": "Tastatur & Maus sperren",
-    "lock_keyboard": "Tastatur sperren",
-    "lock_mouse": "Maus sperren",
-    "label0": "Countdown (Sekunde)",
-    "label1": "Sprache",
-    "label2": "Ausschlussliste",
-    "add": "Hinzufügen",
-    "empty": "Leer",
-    "tip": "Drücken und halten Sie die linke Maustaste für 5 Sekunden gedrückt, um zu entsperren"
+    title="Tastatur & Maus Sperren";
+    lock_keyboard="Tastatur sperren";
+    lock_mouse="Maus sperren";
+    label0="Countdown (Sekunde)";
+    label1="Sprache";
+    label2="Ausschlussliste";
+    tip="Drücken und halten Sie die linke Maustaste für 5 Sekunden gedrückt, um zu entsperren";
+    sponsor="Sponsor";
+    sponsor_text="Wenn Ihnen die Software gefällt und Sie derzeit angestellt sind, würden Sie darüber nachdenken, mich zu sponsern? Jeder Betrag ist willkommen. Ich bin schon lange arbeitslos, finde keinen Job und arbeite derzeit auf verschiedene Weise daran, Geld zu verdienen."
 }

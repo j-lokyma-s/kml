@@ -1,26 +1,30 @@
+import fonts.fontAwesome;
 import win.ui;
 import win.ui.minmax;
 import key.hook;
 import mouse.hook;
+import process;
 import config;
 /*DSG{{*/
 main_form = win.form(text="Keyboard & Mouse Lock";right=539;bottom=219;bgcolor=16777215)
 main_form.add(
-add={cls="plus";text="add";left=450;top=20;right=520;bottom=110;bgcolor=0;border={bottom=1;color=-16711681};color=16776960;db=0.5;dl=0.83;dr=1;dt=1;font=LOGFONT(h=-16);notify=1;tabstop=1;z=10};
-countdown={cls="trackbar";left=20;top=110;right=260;bottom=140;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);max=10;min=0;tabstop=1;tick="both";z=5};
-empty={cls="plus";text="empty";left=450;top=110;right=520;bottom=200;bgcolor=0;border={top=1;color=-16711681};color=16776960;db=1;dl=0.83;dr=1;dt=0.5;font=LOGFONT(h=-16);notify=1;tabstop=1;z=11};
-exclusion_list={cls="listbox";left=280;top=50;right=450;bottom=200;bgcolor=16776960;db=1;dl=1;dr=0.17;dt=1;font=LOGFONT(h=-16);integralHeight=0;items={};tabstop=1;vscroll=1;z=9};
-label0={cls="bk";text="countdown(sec)";left=20;top=80;right=260;bottom=110;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=4};
-label1={cls="bk";text="language";left=20;top=140;right=260;bottom=170;align="left";bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);z=6};
-label2={cls="bk";text="exclusion list";left=280;top=20;right=450;bottom=50;align="left";bgcolor=16776960;dl=1;dr=1;dt=1;font=LOGFONT(h=-16);z=8};
+add={cls="plus";left=470;top=20;right=520;bottom=110;bgcolor=11500287;border={bottom=1;color=-8716369};db=0.5;dl=0.87;dr=1;dt=1;font=LOGFONT(h=-16);iconStyle={font=LOGFONT(h=-21;name='FontAwesome')};iconText='\uF245';notify=1;tabstop=1;z=10};
+countdown={cls="trackbar";left=20;top=110;right=260;bottom=140;bgcolor=11534202;dl=1;dt=1;font=LOGFONT(h=-16);max=10;min=0;tabstop=1;tick="both";z=5};
+empty={cls="plus";left=470;top=110;right=520;bottom=140;bgcolor=11500287;border={top=1;bottom=1;color=-8716369};db=0.36;dl=0.87;dr=1;dt=0.5;font=LOGFONT(h=-16);iconStyle={font=LOGFONT(h=-21;name='FontAwesome')};iconText='\uF014';notify=1;tabstop=1;z=11};
+exclusion_list={cls="listbox";left=280;top=50;right=470;bottom=200;bgcolor=11534202;db=1;dl=1;dr=0.13;dt=1;font=LOGFONT(h=-16);integralHeight=0;items={};tabstop=1;vscroll=1;z=9};
+github={cls="plus";left=470;top=170;right=520;bottom=200;bgcolor=11500287;border={top=1;color=-8716369};db=1;dl=0.87;dr=1;dt=0.77;font=LOGFONT(h=-16);iconStyle={font=LOGFONT(h=-21;name='FontAwesome')};iconText='\uF09B';notify=1;tabstop=1;z=13};
+label0={cls="bk";text="countdown(sec)";left=20;top=80;right=260;bottom=110;align="left";bgcolor=11500287;dl=1;dt=1;font=LOGFONT(h=-16);z=4};
+label1={cls="bk";text="language";left=20;top=140;right=260;bottom=170;align="left";bgcolor=11500287;dl=1;dt=1;font=LOGFONT(h=-16);z=6};
+label2={cls="bk";text="exclusion list";left=280;top=20;right=470;bottom=50;align="left";bgcolor=11534202;dl=1;dr=0.13;dt=1;font=LOGFONT(h=-16);z=8};
 language={cls="combobox";left=20;top=170;right=260;bottom=196;bgcolor=16777215;border=1;dl=1;dt=1;font=LOGFONT(h=-16);items={};mode="dropdown";tabstop=1;z=7};
-lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=260;bottom=50;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=2};
-lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=260;bottom=80;bgcolor=16776960;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
+lock_keyboard={cls="checkbox";text="lock keyboard";left=20;top=20;right=260;bottom=50;bgcolor=11500287;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=2};
+lock_mouse={cls="checkbox";text="lock mouse";left=20;top=50;right=260;bottom=80;bgcolor=11534202;dl=1;dt=1;font=LOGFONT(h=-16);tabstop=1;z=3};
+sponsor={cls="plus";left=470;top=140;right=520;bottom=170;bgcolor=11500287;border={top=1;bottom=1;color=-8716369};db=0.23;dl=0.87;dr=1;dt=0.64;font=LOGFONT(h=-16);iconStyle={font=LOGFONT(h=-21;name='FontAwesome')};iconText='\uF118';notify=1;tabstop=1;z=12};
 tip={cls="static";text="press and hold the left mouse button for 5 sec to unlock";left=0;top=0;right=540;bottom=20;align="center";center=1;color=255;dl=1;dr=1;dt=1;hide=1;transparent=1;z=1}
-);
+)
 /*}}*/
-win.ui.minmax(main_form);
 
+win.ui.minmax(main_form);
 //keyboard hook & mouse hook
 var _keyboard_hook = key.hook();
 var _mouse_hook = mouse.hook();
@@ -42,20 +46,19 @@ var _mouse_action = {
 };
 //skinning buttons
 var button_skin = {
-    color = {
-        default = 0xFF00FFFF;
-        hover = 0xFF000000;
-        focus = 0xFF000000
-    };
     background = {
-        default = 0xFF000000;
-        hover = 0xFFFFFF00;
-        focus = 0xFFFFFF00
+        default = 0xFFFF7AAF;
+        hover = 0xFFFFB300;
+        focus = 0xFFFFB300
     }
 };
 main_form.add.skin(button_skin, false);
 main_form.empty.skin(button_skin, false);
+main_form.sponsor.skin(button_skin, false);
+main_form.github.skin(button_skin, false);
 button_skin = null;
+
+main_form.language.height = 30;
 
 //load config
 config.load();
@@ -66,9 +69,9 @@ main_form.language.items = {
 main_form.language.selIndex = config.table.language;
 localize = function() {
     var i18n_table = eval(string.load(string.format("\res\%s.txt", main_form.language.selText)));
-    main_form.text = i18n_table.title + "  v2.2";
+    main_form.text = i18n_table.title + "  v2.3";
     for (i, ctrl in {
-            "lock_keyboard", "lock_mouse", "label0", "label1", "label2", "add", "empty", "tip"
+            "lock_keyboard", "lock_mouse", "label0", "label1", "label2", "tip"
         }) {
         main_form[ctrl].text = i18n_table[ctrl];
     }
@@ -147,12 +150,7 @@ start_countdown = function(ctrl) {
         ctrl.disabled = true;
         main_form.countdown.disabled = true;
         for (i = 0; main_form.countdown.pos; 0.5) {
-            if (math.isInteger(i)) {
-                main_form.label0.color, main_form.label0.bgcolor = 0, 16776960;
-            }
-            else {
-                main_form.label0.color, main_form.label0.bgcolor = 65535, 0;
-            }
+            main_form.label0.bgcolor = math.isInteger(i) ? 11500287 : 46079;
             main_form.label0.redraw();
             win.delay(500);
         }
@@ -162,14 +160,14 @@ start_countdown = function(ctrl) {
 }
 //when lock_keyboard is clicked
 main_form.lock_keyboard.oncommand = function(id, event) {
-    owner.bgcolor = owner.checked ? 65535 : 16776960;
+    owner.bgcolor = owner.checked ? 46079 : 11500287;
     start_countdown(owner);
     _keyboard_hook.proc = owner.checked ? lambda(msg, vkcode) not table.indexOf(config.table.exclusion_list, vkcode) : null;
 }
 //when lock_mouse is clicked
 main_form.lock_mouse.oncommand = function(id, event) {
     var begin_time;
-    owner.bgcolor = owner.checked ? 65535 : 16776960;
+    owner.bgcolor = owner.checked ? 46079 : 11534202;
     start_countdown(owner);
     main_form.tip.show(owner.checked);
     _mouse_hook.proc = owner.checked ? function(msg, x, y, mousedata, injected, flags, timestamp) {
@@ -180,10 +178,20 @@ main_form.lock_mouse.oncommand = function(id, event) {
             _mouse_hook.proc = null;
             main_form.tip.show(false);
             main_form.lock_mouse.checked = false;
-            main_form.lock_mouse.bgcolor = 16776960;
+            main_form.lock_mouse.bgcolor = 11534202;
         }
         return not table.indexOf(config.table.exclusion_list, msg + mousedata);
     } : null;
+}
+
+//when sponsor is clicked
+main_form.sponsor.oncommand = function(id, event) {
+    global.i18n_table = eval(string.load(string.format("\res\%s.txt", main_form.language.selText)));
+    win.loadForm("\dlg\sponsor.aardio", , main_form).doModal(main_form);
+}
+//when github is clicked
+main_form.github.oncommand = function(id, event) {
+    process.openUrl("https://github.com/j-lokyma-s/kml");
 }
 
 //close hook on exit
@@ -191,5 +199,6 @@ main_form.onClose = function(hwnd, message, wParam, lParam) {
     _keyboard_hook.close();
     _mouse_hook.close();
 }
+
 main_form.show();
 return win.loopMessage();

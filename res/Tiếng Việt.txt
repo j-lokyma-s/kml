@@ -1,11 +1,11 @@
 {
-    title="bàn phím, khóa chuột";
+    title="Bàn Phím, Khóa Chuột";
     lock_keyboard="khóa bàn phím";
     lock_mouse="trống rỗng";
     label0="đếm ngược (giây)";
     label1="ngôn ngữ";
     label2="danh sách loại trừ";
-    add="thêm";
-    empty="trống rỗng";
-    tip="nhấn giữ nút chuột trái 5 giây để mở khóa"
+    tip="nhấn giữ nút chuột trái 5 giây để mở khóa";
+    sponsor="Nhà Tài Trợ";
+    sponsor_text="Nếu bạn thích phần mềm này và hiện đang làm việc, bạn có thể cân nhắc tài trợ cho tôi không? Bất kỳ số lượng đều được chào đón. Tôi đã thất nghiệp một thời gian dài và không tìm được việc làm và hiện đang cố gắng kiếm tiền bằng nhiều cách khác nhau."
 }
